@@ -34,8 +34,8 @@
     - name: Set uid bit on mount.davfs to allow editing in user mode
       file: path=/usr/sbin/mount.davfs state=file mode="u=rws,g=rx,o=rx"
 
-    - name: Mount Filing Center (davfs2) directories, with automount on startup
-      mount: name={{ item.fstab_path }} src={{ item.webdav_url }} state=mounted fstype=davfs opts=rw,user,uid={{item.fstab_uid}},gid={{item.fstab_gid}}
+    - name: Mount Filing Center (davfs2) directories, with automount on startup but set to mount only on first access
+      mount: name={{ item.fstab_path }} src={{ item.webdav_url }} state=mounted fstype=davfs opts=rw,user,uid={{item.fstab_uid}},gid={{item.fstab_gid}},noauto,x-systemd.automount
       with_items: "{{ filing_centers }}"
 
     - name: Add Filing Center users into davfs2 group
