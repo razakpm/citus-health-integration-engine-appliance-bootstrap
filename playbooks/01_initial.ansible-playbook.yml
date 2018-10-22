@@ -16,9 +16,6 @@
     - name: Get useful .vimrc for admin user
       get_url: url=https://raw.githubusercontent.com/amix/vimrc/master/vimrcs/basic.vim dest=/home/{{ appliance_admin_user }}/.vimrc
 
-    - name: Get useful .vimrc for filing center user
-      get_url: url=https://raw.githubusercontent.com/amix/vimrc/master/vimrcs/basic.vim dest=/home/{{ appliance_filing_center_user }}/.vimrc
-
     - name: Reset UFW firewall
       ufw:
         state=reset

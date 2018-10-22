@@ -4,21 +4,15 @@
   vars_files:
     - ../conf/chie.secrets.conf.yml
     - ../conf/chie.common.conf.yml
-  tasks:
-    - name: Open Samba ports
-      ufw: >
-        rule=allow
-        port={{ item }}
-        proto=tcp
-      with_items:
-        - 139
-        - 445
-     
+  pre_tasks:
     - name: Create users
       user:
         name: "{{ appliance_filing_center_user }}"
         groups: "{{ appliance_filing_center_user }}"
         append: true
+
+    - name: Get useful .vimrc for filing center user
+      get_url: url=https://raw.githubusercontent.com/amix/vimrc/master/vimrcs/basic.vim dest=/home/{{ appliance_filing_center_user }}/.vimrc
 
     - name: Configure Filing Center (davfs2) to not use locks
       lineinfile: path=/etc/davfs2/davfs2.conf regexp="^#use_locks" line="use_locks 0"
@@ -44,3 +38,13 @@
 
   roles:
     - bertvv.samba
+
+  post_tasks:
+    - name: Open Samba ports
+      ufw: >
+        rule=allow
+        port={{ item }}
+        proto=tcp
+      with_items:
+        - 139
+        - 445    
