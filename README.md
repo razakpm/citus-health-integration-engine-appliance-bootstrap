@@ -42,13 +42,15 @@ Install the following core utilities:
 ## Setup your account-specific CHIE variables
 
 The Citus Health Customer Success Team will supply you with a **chie.secrets.conf.yml** configuration file via secure e-mail or other mechanism.
+Copy the contents of that file into the CHIE server. Login to the server as **chieadmin** and run:
 
-Please place chie.secrets.conf.yml into /etc/citus-health-integration-engine/conf, which should then look something like this:
+    sudo vi /etc/citus-health-integration-engine/conf/chie.secrets.conf.yml
+
+Once you've done that, the /etc/citus-health-integration-engine/conf will look something like this:
 
     > ls -al /etc/citus-health-integration-engine/conf
     drwxr-xr-x 1 chieadmin chieadmin  512 Oct 22 13:41 .
     drwxr-xr-x 1 chieadmin chieadmin  512 Oct 22 13:44 ..
-    -rwxr--r-- 1 chieadmin chieadmin   21 Oct 22 13:35 .gitignore
     -rwxr--r-- 1 chieadmin chieadmin 1388 Oct 22 13:15 chie.common.conf.yml
     -rwxr--r-- 1 chieadmin chieadmin  230 Oct 22 13:14 chie.secrets.conf-tmpl.yml
     -rwxr--r-- 1 chieadmin chieadmin  213 Oct 22 13:14 chie.secrets.conf.yml

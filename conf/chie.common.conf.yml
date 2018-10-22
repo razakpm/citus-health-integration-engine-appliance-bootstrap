@@ -29,6 +29,7 @@ samba_shares:
     valid_users: "{{ appliance_filing_center_user }}"
     write_list: "{{ appliance_filing_center_user }}"
     group: "{{ appliance_filing_center_user }}"
+    public: 'yes'
     browseable: 'yes'
 
 samba_log: /var/log/samba.log

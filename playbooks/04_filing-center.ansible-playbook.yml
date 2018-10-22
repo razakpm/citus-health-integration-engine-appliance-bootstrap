@@ -13,6 +13,7 @@
     - name: Create filing center user
       user:
         name: "{{ appliance_filing_center_user }}"
+        password: "{{ appliance_filing_center_passwd }}"
         groups: "{{ appliance_filing_center_user }}"
         append: true
 
