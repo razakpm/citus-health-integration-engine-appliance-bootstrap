@@ -5,7 +5,12 @@
     - ../conf/chie.secrets.conf.yml
     - ../conf/chie.common.conf.yml
   pre_tasks:
-    - name: Create users
+    - name: Create filing center group
+      group:
+        name: "{{ appliance_filing_center_user }}"
+        state: present
+
+    - name: Create filing center user
       user:
         name: "{{ appliance_filing_center_user }}"
         groups: "{{ appliance_filing_center_user }}"
