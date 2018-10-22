@@ -37,21 +37,23 @@ Install the following core utilities:
 
 ## Download the core software and prepare for CHIE containers
 
-    sudo git clone --recurse https://github.com/CitusHealth/citus-health-integration-engine-appliance-public /etc/citus-health-integration-engine
+    sudo git clone --recurse https://github.com/CitusHealth/citus-health-integration-engine-appliance-bootstrap /etc/citus-health-integration-engine
 
 ## Setup your account-specific CHIE variables
 
-The Citus Health Customer Success Team will supply you with a **chie.conf.yml** configuration file via secure e-mail or other mechanism.
+The Citus Health Customer Success Team will supply you with a **chie.secrets.conf.yml** configuration file via secure e-mail or other mechanism.
 
-Please place chie.conf.yml into /etc/citus-health-integration-engine/conf, which should then look something like this:
+Please place chie.secrets.conf.yml into /etc/citus-health-integration-engine/conf, which should then look something like this:
 
     > ls -al /etc/citus-health-integration-engine/conf
-    drwxr-xr-x 2 root root 4096 Oct 16 10:39 .
-    drwxr-xr-x 7 root root 4096 Oct 16 10:53 ..
-    -rwxr-xr-x 1 root root  578 Oct 16 10:37 chie.conf.tmpl.yml
-    -rwxr-xr-x 1 root root  563 Oct 16 10:54 chie.conf.yml
+    drwxr-xr-x 1 chieadmin chieadmin  512 Oct 22 13:41 .
+    drwxr-xr-x 1 chieadmin chieadmin  512 Oct 22 13:44 ..
+    -rwxr--r-- 1 chieadmin chieadmin   21 Oct 22 13:35 .gitignore
+    -rwxr--r-- 1 chieadmin chieadmin 1388 Oct 22 13:15 chie.common.conf.yml
+    -rwxr--r-- 1 chieadmin chieadmin  230 Oct 22 13:14 chie.secrets.conf-tmpl.yml
+    -rwxr--r-- 1 chieadmin chieadmin  213 Oct 22 13:14 chie.secrets.conf.yml
 
-The **chie.conf.tmpl.yml** file is a template (sample), and the **chie.conf.yml** will be the file given to you by the Citus Health Customer Success Team.
+The **chie.secrets.conf-tmpl.yml** file is a template (sample), and the **chie.secrets.conf.yml** will be the file given to you by the Citus Health Customer Success Team.
 
 ## Setup the core software and prepare for CHIE containers
 

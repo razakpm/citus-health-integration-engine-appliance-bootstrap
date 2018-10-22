@@ -5,7 +5,7 @@
     - ../conf/chie.secrets.conf.yml
     - ../conf/chie.common.conf.yml
   tasks:
-    - name: Install standard CHIE packages
+    - name: Install standard packages
       apt:
         name: ['davfs2', 'htop', 'tree', 'jq', 'fail2ban', 'vim', 'mosh', 'ufw', 'prometheus-node-exporter', 'python-pip', 'inetutils-traceroute']
         update_cache: yes
