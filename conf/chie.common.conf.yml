@@ -1,0 +1,36 @@
+appliance_setup_path: /etc/citus-health-integration-engine
+docker_users: ["{{ appliance_admin_user }}"]
+filing_centers:
+  - webdav_url: "https://sync.citushealth.com/account/{{chp_filing_center_account_id}}"
+    webdav_user: "{{ chp_filing_center_account_id }}"
+    webdav_password: "{{ chp_filing_center_account_password }}"
+    fstab_path: "/mnt/filing-center-primary"
+    fstab_uid: "{{ appliance_filing_center_user }}"
+    fstab_gid: "{{ appliance_filing_center_user }}"
+
+# See https://github.com/bertvv/ansible-role-samba/blob/docker-tests/test.yml for all vars
+samba_netbios_name: CHP_FILING_CENTER
+samba_server_string: 'Welcome to the Citus Health Plaform Filing Center (CHPFC)'
+samba_workgroup: CHPFC
+
+samba_load_homes: false
+samba_load_printers: false
+samba_create_varwww_symlinks: false
+
+samba_map_to_guest: Never
+samba_users:
+  - name: "{{ appliance_filing_center_user }}"
+    password: "{{ appliance_filing_center_passwd }}"
+    
+samba_shares:
+  - name: filing_center
+    path: /mnt/filing-center-primary
+    comment: 'Only readable/writeable by filing_center'
+    valid_users: "{{ appliance_filing_center_user }}"
+    write_list: "{{ appliance_filing_center_user }}"
+    group: "{{ appliance_filing_center_user }}"
+    browseable: 'yes'
+
+samba_log: /var/log/samba.log
+samba_log_size: 60000
+samba_log_level: '3 passdb:5 auth:10 winbind:2 '

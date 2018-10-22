@@ -1,0 +1,46 @@
+---
+- name: Citus Health Integration Engine (CHIE) Filing Center
+  hosts: all
+  vars_files:
+    - ../conf/chie.secrets.conf.yml
+    - ../conf/chie.common.conf.yml
+  tasks:
+    - name: Open Samba ports
+      ufw: >
+        rule=allow
+        port={{ item }}
+        proto=tcp
+      with_items:
+        - 139
+        - 445
+     
+    - name: Create users
+      user:
+        name: "{{ appliance_filing_center_user }}"
+        groups: "{{ appliance_filing_center_user }}"
+        append: true
+
+    - name: Configure Filing Center (davfs2) to not use locks
+      lineinfile: path=/etc/davfs2/davfs2.conf regexp="^#use_locks" line="use_locks 0"
+
+    - name: Configure Filing Center (davfs2) secrets
+      lineinfile: path=/etc/davfs2/secrets line="{{ item.webdav_url }} {{ item.webdav_user }} {{ item.webdav_password }}" state=present
+      with_items: "{{ filing_centers }}"
+
+    - name: Ensure Filing Center (davfs2) paths are present
+      file: path={{ item.fstab_path }} state=directory
+      with_items: "{{ filing_centers }}"
+
+    - name: Set uid bit on mount.davfs to allow editing in user mode
+      file: path=/usr/sbin/mount.davfs state=file mode="u=rws,g=rx,o=rx"
+
+    - name: Mount Filing Center (davfs2) directories, with automount on startup
+      mount: name={{ item.fstab_path }} src={{ item.webdav_url }} state=mounted fstype=davfs opts=rw,user,uid={{item.fstab_uid}},gid={{item.fstab_gid}}
+      with_items: "{{ filing_centers }}"
+
+    - name: Add Filing Center users into davfs2 group
+      user: name={{ item.fstab_uid }} groups=davfs2 append=yes
+      with_items: "{{ filing_centers }}"
+
+  roles:
+    - bertvv.samba

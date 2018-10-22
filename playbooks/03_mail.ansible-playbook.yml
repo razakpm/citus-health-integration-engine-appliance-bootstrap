@@ -1,0 +1,22 @@
+---
+- name: Citus Health Integration Engine (CHIE) Mail
+  hosts: all
+  vars_files:
+    - ../conf/chie.secrets.conf.yml
+    - ../conf/chie.common.conf.yml
+  roles:
+    - geerlingguy.postfix 
+  tasks:
+    - name: Install additional mail utilities
+      apt:
+        name: ['mailutils']
+        update_cache: yes
+
+    - name: Open SMTP port(s)
+      ufw: >
+        rule=allow
+        port={{ item }}
+        proto=tcp
+      with_items:
+        - 25     # Default SMTP port
+     
