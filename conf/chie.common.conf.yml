@@ -7,6 +7,7 @@ filing_centers:
     fstab_path: "/mnt/filing-center-primary"
     fstab_uid: "{{ appliance_filing_center_user }}"
     fstab_gid: "{{ appliance_filing_center_user }}"
+    symlink: "/home/{{ appliance_filing_center_user }}/primary"
 
 # See https://github.com/bertvv/ansible-role-samba/blob/docker-tests/test.yml for all vars
 samba_netbios_name: CHP_FILING_CENTER

@@ -54,3 +54,18 @@
       with_items:
         - 139
         - 445    
+
+    - name: Create symlink to samba log file so the FC user can review logs
+      file: 
+        state: link
+        src: "{{ samba_log }}" 
+        dest: "/home/{{ appliance_filing_center_user }}/samba.log" 
+
+    - name: Create symlink to davfs2 mount point (usually from home directory of user)
+      file: 
+        state: link
+        src: "{{ item.fstab_path }}" 
+        dest: "{{ item.symlink }}" 
+        owner: "{{ item.fstab_uid }}"
+        group: "{{ item.fstab_gid }}"
+      with_items: "{{ filing_centers }}"
