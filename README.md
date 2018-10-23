@@ -60,23 +60,42 @@ The **chie.secrets.conf-tmpl.yml** file is a template (sample), and the **chie.s
 ## Setup the core software and prepare for CHIE containers
 
     cd /etc/citus-health-integration-engine 
-    scripts/bootstrap.sh
+    bash scripts/bootstrap.sh
 
 After bootstrap.sh is complete, exit the shell and restart it.
 
 Once you've logged in again as **chieadmin**, resume the setup:
 
     cd /etc/citus-health-integration-engine 
-    scripts/setup-chie.sh
+    bash scripts/setup-chie.sh
 
-After setup is completed, reboot the server:
+After setup is completed, reboot the server (Docker setup will be incomplete without a reboot):
 
     sudo reboot
 
 After reboot is completed, log into the server as user **chieadmin**.
 
-## Getting started with CHIE
+## Getting started with CHIE's Filing Center
 
-After all installation steps above are completed, log into the server as user **chieadmin**.
+The CHIE has automated support for the Citus Health Filing Center ("FC"). By default, the 
+FC is installed via Samba as user filing_center and connected to your Citus Health Account 
+automatically. 
+
+You can connect your Windows PC inside your network to the CHIE Appliance using:
+
+    net use F: \\chie\filing_center
+
+The user name and password are provided in the **chie.secrets.conf.yml** file:
+
+* **appliance_filing_center_user** is the share's username
+* **appliance_filing_center_samba_passwd** is the share's password
+
+## Getting started with CHIE's Virtual Printer
+
+TODO: *Add CUPS printers that will save files into the FC.*
+
+## Getting started with CHIE's CPR+ FHIR Server
+
+TODO
 
 (more to come...)
