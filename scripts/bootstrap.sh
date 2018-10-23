@@ -8,6 +8,7 @@ title() {
 title "Install Python and Ansible"
 sudo apt-get install -y software-properties-common
 sudo apt-add-repository ppa:ansible/ansible -y
+sudo add-apt-repository universe
 sudo apt-get update
 sudo apt-get install -y curl wget ansible git make
 
