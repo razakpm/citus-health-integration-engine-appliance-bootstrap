@@ -25,3 +25,4 @@ sudo ansible-playbook -i "localhost," -c local playbooks/01_initial.ansible-play
 sudo ansible-playbook -i "localhost," -c local playbooks/02_docker.ansible-playbook.yml
 sudo ansible-playbook -i "localhost," -c local playbooks/03_mail.ansible-playbook.yml
 sudo ansible-playbook -i "localhost," -c local playbooks/04_filing-center.ansible-playbook.yml
+sudo ansible-playbook -i "localhost," -c local playbooks/05_cpr.ansible-playbook.yml

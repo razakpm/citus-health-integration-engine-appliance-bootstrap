@@ -1,0 +1,15 @@
+---
+- name: Citus Health Integration Engine (CHIE) CPR
+  hosts: all
+  vars_files:
+    - ../conf/chie.secrets.conf.yml
+    - ../conf/chie.common.conf.yml
+  vars:
+   cpr_path: /opt/fhir/citus-health-integration-engine-appliance-account
+  tasks:
+    - name: Clone CPR private GIT repo
+      git:
+       name: https://{{ githubuser | urlencode }}:{{ githubpassword | urlencode }}@github.com/CitusHealth/citus-health-integration-engine-appliance-account.git 
+       dest: '{{cpr_path}}'
+    - name: Going to CPR directory and install CPR container
+      command: chdir={{ cpr_path }} ccfmake start
