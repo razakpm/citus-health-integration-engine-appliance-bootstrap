@@ -8,6 +8,20 @@ filing_centers:
     fstab_uid: "{{ appliance_filing_center_user }}"
     fstab_gid: "{{ appliance_filing_center_user }}"
     symlink: "/home/{{ appliance_filing_center_user }}/primary"
+cups_server:
+  - cups_etc_location: "/etc/cups"
+    cups_pdf_print_user_storage_location: "/var/spool/cups-pdf/ANONYMOUS"
+    cups_pdf_print_storage_user_location: "/mnt/filing-center-primary"
+    cpus_pdf_filesystem_fstype: "ext4"
+cups_packages_to_install:
+  - cups
+  - cups-pdf
+  - cups-common
+  - cups-browsed
+  - cups-client
+  - printer-driver-all
+  - cups-ppdc
+
 
 # See https://github.com/bertvv/ansible-role-samba/blob/docker-tests/test.yml for all vars
 samba_netbios_name: CHP_FILING_CENTER
