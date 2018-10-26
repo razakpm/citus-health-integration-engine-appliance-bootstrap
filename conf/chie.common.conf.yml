@@ -36,3 +36,6 @@ samba_shares:
 samba_log: /var/log/samba.log
 samba_log_size: 60000
 samba_log_level: '3 passdb:5 auth:10 winbind:2 '
+
+citus_health_containers_path: /opt/citus-health-containers
+wellsky_cpr_fhir_facade_path: /opt/citus-health-containers/wellsky-cpr-fhir-facade

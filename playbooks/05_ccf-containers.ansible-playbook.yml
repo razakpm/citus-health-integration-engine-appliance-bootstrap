@@ -1,0 +1,14 @@
+---
+- name: Citus Health Integration Engine (CHIE) CCF Containers
+  hosts: all
+  vars_files:
+    - ../conf/chie.secrets.conf.yml
+    - ../conf/chie.common.conf.yml
+  tasks:
+    - name: Clone Citus Health Integration Engine (CHIE) CCF Containers
+      git:
+       name: https://{{ chp_github_account | urlencode }}:{{ chp_github_account_token | urlencode }}@github.com/CitusHealth/citus-health-integration-engine-appliance-ccf-containers.git 
+       dest: '{{citus_health_containers_path}}'
+
+    - name: Go to CPR+ FHIR Facade directory and install CPR+ FHIR Facade container
+      command: chdir={{ wellsky_cpr_fhir_facade_path }} ccfmake start
