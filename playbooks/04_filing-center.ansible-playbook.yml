@@ -30,7 +30,7 @@
     - name: Ensure Filing Center (davfs2) paths are present
       file: path={{ item.fstab_path }} state=directory
       with_items: "{{ filing_centers }}"
-
+      
     - name: Set uid bit on mount.davfs to allow editing in user mode
       file: path=/usr/sbin/mount.davfs state=file mode="u=rws,g=rx,o=rx"
 
@@ -42,7 +42,18 @@
       user: name={{ item.fstab_uid }} groups=davfs2 append=yes
       with_items: "{{ filing_centers }}"
 
-  roles:
+    - name: Citus Health Cups Server Integration
+       apt: name={{ item }} state=latest
+       with_items:
+          - "{{cups_packages_to_install}}"
+       command: sudo /usr/sbin/cupsctl --remote-admin
+    - name : Softlink CUPS directory to filing Center
+       file:
+         src: "{{ cups_pdf_print_user_storage_location }}"
+         dest: "{{ cups_pdf_print_storage_user_location }}"
+         state: link
+
+roles:
     - bertvv.samba
 
   post_tasks:
@@ -53,7 +64,8 @@
         proto=tcp
       with_items:
         - 139
-        - 445    
+        - 445
+        
 
     - name: Create symlink to samba log file so the FC user can review logs
       file: 
