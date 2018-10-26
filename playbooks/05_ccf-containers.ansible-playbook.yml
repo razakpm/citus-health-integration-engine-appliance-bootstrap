@@ -10,5 +10,8 @@
        name: https://{{ chp_github_account | urlencode }}:{{ chp_github_account_token | urlencode }}@github.com/CitusHealth/citus-health-integration-engine-appliance-ccf-containers.git 
        dest: '{{citus_health_containers_path}}'
 
-    - name: Go to CPR+ FHIR Facade directory and install CPR+ FHIR Facade container
+    - name: Go to CPR+ FHIR Facade directory and install CPR+ FHIR Facade CCF container service
       command: chdir={{ wellsky_cpr_fhir_facade_path }} ccfmake start
+    
+    - name: Go to Nextgen Mirth Connect directory and install Nextgen Mirth Connect CCF container service
+      command: chdir={{ nextgen_mirth_connect_path }} ccfmake start
