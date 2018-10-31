@@ -60,15 +60,9 @@
       cron:
         name: "Syncing cups data"
         minute: 0
-        job: "/usr/bin/rsync -avz {{ item.cups_pdf_print_user_storage_location }} {{ item.cups_pdf_print_storage_user_location }}"
+        job: "/usr/bin/rsync -avz {{ item.cups_pdf_print_storage_location }} {{ item.cups_pdf_print_storage_user_webdav_location }}"
       with_items: "{{ cups_server  }}" 
     
-
-        #     - name : Softlink CUPS directory to filing Center
-        #file:
-        #src: "{{ cups_pdf_print_user_storage_location }}"
-        #dest: "{{ cups_pdf_print_storage_user_location }}"
-        #state: link
 
   roles:
     - bertvv.samba
