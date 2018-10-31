@@ -43,17 +43,17 @@
       with_items: "{{ filing_centers }}"
 
     - name: Citus Health Cups Server Integration
-       apt: name={{ item }} state=latest
-       with_items:
+      apt: name={{ item.cups_name }} state=latest
+      with_items:
           - "{{cups_packages_to_install}}"
-       command: sudo /usr/sbin/cupsctl --remote-admin
+      command: sudo /usr/sbin/cupsctl --remote-admin
     - name : Softlink CUPS directory to filing Center
-       file:
-         src: "{{ cups_pdf_print_user_storage_location }}"
-         dest: "{{ cups_pdf_print_storage_user_location }}"
-         state: link
+      file:
+        src: "{{ cups_pdf_print_user_storage_location }}"
+        dest: "{{ cups_pdf_print_storage_user_location }}"
+        state: link
 
-roles:
+  roles:
     - bertvv.samba
 
   post_tasks:
