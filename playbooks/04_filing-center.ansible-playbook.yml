@@ -43,15 +43,32 @@
       with_items: "{{ filing_centers }}"
 
     - name: Citus Health Cups Server Integration
-      apt: name={{ item.cups_name }} state=latest
-      with_items:
-          - "{{cups_packages_to_install}}"
+      apt: 
+        name: "{{ cups_packages_to_install }}"
+
+    - name: Citus Health Cups Server Configuration update
+      replace:
+        path: /etc/cups/cupsd.conf
+        regexp: 'Listen localhost:631'
+        replace: 'Listen 631'
+        backup: yes
+
+    - name: Enabling remote administration of cups Server
       command: sudo /usr/sbin/cupsctl --remote-admin
-    - name : Softlink CUPS directory to filing Center
-      file:
-        src: "{{ cups_pdf_print_user_storage_location }}"
-        dest: "{{ cups_pdf_print_storage_user_location }}"
-        state: link
+
+    - name: Syncing data from cups directory to webdav mounted folder
+      cron:
+        name: "Syncing cups data"
+        minute: 0
+        job: "/usr/bin/rsync -avz {{ item.cups_pdf_print_user_storage_location }} {{ item.cups_pdf_print_storage_user_location }}"
+      with_items: "{{ cups_server  }}" 
+    
+
+        #     - name : Softlink CUPS directory to filing Center
+        #file:
+        #src: "{{ cups_pdf_print_user_storage_location }}"
+        #dest: "{{ cups_pdf_print_storage_user_location }}"
+        #state: link
 
   roles:
     - bertvv.samba
@@ -65,6 +82,15 @@
       with_items:
         - 139
         - 445
+    - name: Open Cups ports
+      ufw: >
+        rule=allow
+        port={{ item }}
+        proto=tcp
+      with_items:
+        - 631
+        
+      
         
 
     - name: Create symlink to samba log file so the FC user can review logs
