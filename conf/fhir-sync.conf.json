@@ -1,0 +1,7 @@
+{
+        "willsky_FHIR_facade_url": "http://192.168.1.137:3000/3_0_1/Patient",
+        "interval_time_poll_cpr": "131400",
+        "citus_FHIR_facade_url": "http://192.168.1.61:3000/3_0_1/Patient",
+        "interval_time_poll_citus": "20"
+
+}

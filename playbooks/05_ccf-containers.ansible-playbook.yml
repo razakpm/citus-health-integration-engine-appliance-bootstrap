@@ -9,6 +9,7 @@
       git:
        name: https://{{ chp_github_account | urlencode }}:{{ chp_github_account_token | urlencode }}@github.com/CitusHealth/citus-health-integration-engine-appliance-ccf-containers.git 
        dest: '{{citus_health_containers_path}}'
+
       # Copy the CPR+ FHIR Facade Secret Conf file to CPR+ FHIR Facade CCF Container directory  
     - copy:
        src: ../conf/cpr.secrets.conf.json
@@ -18,6 +19,16 @@
        mode: 0644
     - name: Go to CPR+ FHIR Facade directory and install CPR+ FHIR Facade CCF container service
       command: chdir={{ wellsky_cpr_fhir_facade_path }} ccfmake start
-    
+
+    # Copy the FHIR Sync Conf file to FHIR Sync CCF Container directory
+    - copy:
+       src: ../conf/fhir-sync.conf.json
+       dest: '{{ fhir_sync_conf_ccf_container_dest_file }}'
+       owner: root
+       group: root
+       mode: 0644
+    - name: Go to FHIR Sync directory and install FHIR Sync CCF container service
+      command: chdir={{ fhir_sync_ccf_container_path }} ccfmake start
+
     - name: Go to Nextgen Mirth Connect directory and install Nextgen Mirth Connect CCF container service
-      command: chdir={{ nextgen_mirth_connect_path }} ccfmake start
+      command: chdir={{ nextgen_mirth_connect_path }} ccfmake configure

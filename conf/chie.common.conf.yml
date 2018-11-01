@@ -55,4 +55,6 @@ samba_log_level: '3 passdb:5 auth:10 winbind:2 '
 citus_health_containers_path: /opt/citus-health-containers
 wellsky_cpr_fhir_facade_path: /opt/citus-health-containers/wellsky-cpr-fhir-facade
 wellsky_cpr_fhir_facade_secret_dest_file: /opt/citus-health-containers/wellsky-cpr-fhir-facade/etc/env.json
+fhir_sync_ccf_container_path: /opt/citus-health-containers/fhir-sync-node-red/
+fhir_sync_conf_ccf_container_dest_file: /opt/citus-health-containers/fhir-sync-node-red/etc/fhir-sync.json
 nextgen_mirth_connect_path: /opt/citus-health-containers/nextgen-mirth-connect
