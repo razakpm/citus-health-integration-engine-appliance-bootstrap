@@ -45,6 +45,10 @@ The Citus Health Customer Success Team will supply you with a **chie.secrets.con
 Copy the contents of that file into the CHIE server. Login to the server as **chieadmin** and run:
 
     sudo vi /etc/citus-health-integration-engine/conf/chie.secrets.conf.yml
+    
+In addition, if you are using WellSky's CPR+ integration:
+   
+    sudo vi /etc/citus-health-integration-engine/conf/wellsky-cprplus.secrets.conf.yml
 
 Once you've done that, the /etc/citus-health-integration-engine/conf will look something like this:
 
