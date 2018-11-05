@@ -49,6 +49,8 @@ Copy the contents of that file into the CHIE server. Login to the server as **ch
 In addition, if you are using WellSky's CPR+ integration:
    
     sudo vi /etc/citus-health-integration-engine/conf/wellsky-cprplus.secrets.conf.yml
+    
+    Please specify the wellsky-cprplus dbhost,dbname, username and password.
 
 Once you've done that, the /etc/citus-health-integration-engine/conf will look something like this:
 
